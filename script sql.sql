@@ -1,8 +1,7 @@
 create database Village_Green;
 
-
 CREATE TABLE Fournisseur(
-   id_fou NOT NULL, AUTO_INCREMENT,
+   id_fou NOT NULL AUTO_INCREMENT,
    nom_fou VARCHAR(50) NOT NULL,
    ville_fou VARCHAR(50) NOT NULL,
    adresse_fou VARCHAR(255) NOT NULL,
@@ -14,7 +13,7 @@ CREATE TABLE Fournisseur(
 );
 
 CREATE TABLE Employé(
-   id_emp NOT NULL, AUTO_INCREMENT,
+   id_emp NOT NULL AUTO_INCREMENT,
    nom_emp VARCHAR(50) NOT NULL,
    prenom_emp VARCHAR(50) NOT NULL,
    phone_emp INT NOT NULL,
@@ -24,13 +23,13 @@ CREATE TABLE Employé(
 );
 
 CREATE TABLE Catégorie(
-   id_cat NOT NULL, AUTO_INCREMENT,
+   id_cat NOT NULL AUTO_INCREMENT,
    nom_cat VARCHAR(50) NOT NULL,
    PRIMARY KEY(id_cat)
 );
 
 CREATE TABLE Client(
-   id_cli NOT NULL, AUTO_INCREMENT,
+   id_cli NOT NULL AUTO_INCREMENT,
    nom_cli VARCHAR(50) NOT NULL,
    prenom_cli VARCHAR(50) NOT NULL,
    adresse_cli VARCHAR(255) NOT NULL,
@@ -41,14 +40,14 @@ CREATE TABLE Client(
    adr_livraison_cli VARCHAR(255) NOT NULL,
    ville_livraison_cli VARCHAR(50) NOT NULL,
    zipcode_livr_cli VARCHAR(5) NOT NULL,
-   type_cli LOGICAL NOT NULL,
+   type_cli VARCHAR(50) NOT NULL,
    id_emp INT NOT NULL,
    PRIMARY KEY(id_cli),
    FOREIGN KEY(id_emp) REFERENCES Employé(id_emp)
 );
 
 CREATE TABLE commande(
-   id_com NOT NULL, AUTO_INCREMENT,
+   id_com NOT NULL AUTO_INCREMENT,
    date_com DATE NOT NULL,
    etat_com VARCHAR(50) NOT NULL,
    prix_total_com DECIMAL(8,2) NOT NULL,
@@ -58,20 +57,20 @@ CREATE TABLE commande(
 );
 
 CREATE TABLE Facturation(
-   id_fac NOT NULL, AUTO_INCREMENT,
+   id_fac NOT NULL AUTO_INCREMENT,
    reduction_fac INT,
    reduc_sup_fact INT,
    date_fact DATE,
    total_fact DECIMAL(8,2) NOT NULL,
-   etat_fact LOGICAL NOT NULL,
-   type_paiement_fact LOGICAL NOT NULL,
+   etat_fact VARCHAR(50) NOT NULL,
+   type_paiement_fact VARCHAR(50) NOT NULL,
    id_com INT NOT NULL,
    PRIMARY KEY(id_fac),
    FOREIGN KEY(id_com) REFERENCES commande(id_com)
 );
 
 CREATE TABLE sous_categorie(
-   sous_cat_id NOT NULL, AUTO_INCREMENT,
+   sous_cat_id NOT NULL AUTO_INCREMENT,
    nom_sous_cat VARCHAR(50) NOT NULL,
    id_cat INT NOT NULL,
    PRIMARY KEY(sous_cat_id),
@@ -79,7 +78,7 @@ CREATE TABLE sous_categorie(
 );
 
 CREATE TABLE Livraison(
-   id_liv NOT NULL, AUTO_INCREMENT,
+   id_liv NOT NULL AUTO_INCREMENT,
    date_liv DATE,
    quantité_liv INT NOT NULL,
    date_expedition_liv DATE,
@@ -89,7 +88,7 @@ CREATE TABLE Livraison(
 );
 
 CREATE TABLE Produit(
-   id_pro NOT NULL, AUTO_INCREMENT,
+   id_pro NOT NULL AUTO_INCREMENT,
    prix_vente_pro DECIMAL(8,2) NOT NULL,
    prix_achat_pro DECIMAL(8,2) NOT NULL,
    ref_pro VARCHAR(50) NOT NULL,
@@ -106,7 +105,7 @@ CREATE TABLE Produit(
 );
 
 CREATE TABLE Ligne_de_commande(
-   id_ligne_com NOT NULL, AUTO_INCREMENT,
+   id_ligne_com NOT NULL AUTO_INCREMENT,
    quantité_ligne_com INT NOT NULL,
    prix_unit_ligne_com INT NOT NULL,
    id_com INT,

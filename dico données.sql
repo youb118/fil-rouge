@@ -21,7 +21,7 @@ Mail (varchar 255)
 Adresse de livraison (varchar 255) 
 Ville de livraison (varchar 50)
 Code postal de livraison (varchat 5)
-type de client (particulier/professionnel) booleen
+type de client varchar 50
 
 
 Employé commerciaux
@@ -78,5 +78,5 @@ Réduction (Int)
 Réduction supplémentaire (Int)
 Date de facturation (Date)
 Montant total facture (decimal)
-Etat de la facture (Payé/Impayé) (Boolean)
-Type de paiement (Comptant/Différé) (Boolean)
+Etat de la facture VARCHAR(50)
+Type de paiement VARCHAR(50)
