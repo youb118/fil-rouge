@@ -6,7 +6,7 @@ CREATE TABLE Fournisseur(
    ville_fou VARCHAR(50) NOT NULL,
    adresse_fou VARCHAR(255) NOT NULL,
    zipcode_fou VARCHAR(5) NOT NULL,
-   type_fou LOGICAL NOT NULL,
+   type_fou VARCHAR(50) NOT NULL,
    phone_fou INT,
    mail_fou VARCHAR(255) NOT NULL,
    PRIMARY KEY(id_fou)
