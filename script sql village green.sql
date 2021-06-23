@@ -1,120 +1,121 @@
+
 drop database if exists Village_Green;
 
 create database Village_Green;
 
 use Village_Green;
 
-CREATE TABLE Fournisseur(
-   id_fou int(10) NOT NULL AUTO_INCREMENT,
-   nom_fou VARCHAR(50) NOT NULL,
-   ville_fou VARCHAR(50) NOT NULL,
-   adresse_fou VARCHAR(255) NOT NULL,
-   zipcode_fou VARCHAR(5) NOT NULL,
-   type_fou VARCHAR(50) NOT NULL,
-   phone_fou INT,
-   mail_fou VARCHAR(255) NOT NULL,
-   PRIMARY KEY(id_fou)
+CREATE TABLE fournisseur(
+   fou_id Int(10) NOT NULL AUTO_INCREMENT,
+   fou_nom VARCHAR(50) NOT NULL,
+   fou_ville VARCHAR(50) NOT NULL,
+   fou_adresse VARCHAR(255) NOT NULL,
+   fou_zipcode VARCHAR(5) NOT NULL,
+   fou_type VARCHAR(50) NOT NULL,
+   fou_phone INT,
+   fou_mail VARCHAR(255) NOT NULL,
+   PRIMARY KEY(fou_id)
 );
 
-CREATE TABLE Employé(
-   id_emp int(10) NOT NULL AUTO_INCREMENT,
-   nom_emp VARCHAR(50) NOT NULL,
-   prenom_emp VARCHAR(50) NOT NULL,
-   phone_emp INT NOT NULL,
-   fonction_emp VARCHAR(50) NOT NULL,
-   mail_emp VARCHAR(100) NOT NULL,
-   PRIMARY KEY(id_emp)
+CREATE TABLE employe(
+   emp_id  Int(10) NOT NULL AUTO_INCREMENT,
+   emp_nom VARCHAR(50) NOT NULL,
+   emp_prenom VARCHAR(50) NOT NULL,
+   emp_phone INT NOT NULL,
+   emp_fontion VARCHAR(50) NOT NULL,
+   emp_mail VARCHAR(100) NOT NULL,
+   PRIMARY KEY(emp_id)
 );
 
-CREATE TABLE Catégorie(
-   id_cat int(10) NOT NULL AUTO_INCREMENT,
-   nom_cat VARCHAR(50) NOT NULL,
-   PRIMARY KEY(id_cat)
+CREATE TABLE categorie(
+   cat_id  Int(10) NOT NULL AUTO_INCREMENT,
+   cat_nom VARCHAR(50) NOT NULL,
+   PRIMARY KEY(cat_id)
 );
 
-CREATE TABLE Client(
-   id_cli int(10) NOT NULL AUTO_INCREMENT,
-   nom_cli VARCHAR(50) NOT NULL,
-   prenom_cli VARCHAR(50) NOT NULL,
-   adresse_cli VARCHAR(255) NOT NULL,
-   zipcode_cli VARCHAR(5) NOT NULL,
-   ville_cli VARCHAR(20) NOT NULL,
-   phone_cli INT NOT NULL,
-   mail_cli VARCHAR(100) NOT NULL,
-   adr_livraison_cli VARCHAR(255) NOT NULL,
-   ville_livraison_cli VARCHAR(50) NOT NULL,
-   zipcode_livr_cli VARCHAR(5) NOT NULL,
-   type_cli VARCHAR(255) NOT NULL,
-   id_emp INT NOT NULL,
-   PRIMARY KEY(id_cli),
-   FOREIGN KEY(id_emp) REFERENCES Employé(id_emp)
+CREATE TABLE client(
+   cli_id  Int(10) NOT NULL AUTO_INCREMENT,
+   cli_nom VARCHAR(50) NOT NULL,
+   cli_prenom VARCHAR(50) NOT NULL,
+   cli_adresse VARCHAR(255) NOT NULL,
+   cli_zipcode VARCHAR(5) NOT NULL,
+   cli_ville VARCHAR(20) NOT NULL,
+   cli_phone INT NOT NULL,
+   cli_mail VARCHAR(100) NOT NULL,
+   cli_adr_livraison VARCHAR(255) NOT NULL,
+   cli_ville_livraison VARCHAR(50) NOT NULL,
+   cli_zipcode_livr VARCHAR(5) NOT NULL,
+   cli_type VARCHAR(255) NOT NULL,
+   cli_emp_id INT NOT NULL,
+   PRIMARY KEY(cli_id),
+   FOREIGN KEY(cli_emp_id) REFERENCES Employé(emp_id)
 );
 
 CREATE TABLE commande(
-   id_com int(10) NOT NULL AUTO_INCREMENT,
-   date_com DATE NOT NULL,
-   etat_com VARCHAR(50) NOT NULL,
-   prix_total_com DECIMAL(8,2) NOT NULL,
-   id_cli INT NOT NULL,
-   PRIMARY KEY(id_com),
-   FOREIGN KEY(id_cli) REFERENCES Client(id_cli)
+   com_id  Int(10) NOT NULL AUTO_INCREMENT,
+   com_date DATE NOT NULL,
+   com_etat VARCHAR(50) NOT NULL,
+   com_prix_total DECIMAL(8,2) NOT NULL,
+   com_cli_id INT NOT NULL,
+   PRIMARY KEY(com_id),
+   FOREIGN KEY(com_cli_id) REFERENCES Client(cli_id)
 );
 
-CREATE TABLE Facturation(
-   id_fac int(10) NOT NULL AUTO_INCREMENT,
-   reduction_fac INT,
-   reduc_sup_fact INT,
-   date_fact DATE,
-   total_fact DECIMAL(8,2) NOT NULL,
-   etat_fact VARCHAR(50) NOT NULL,
-   type_paiement_fact VARCHAR(50) NOT NULL,
-   id_com INT NOT NULL,
-   PRIMARY KEY(id_fac),
-   FOREIGN KEY(id_com) REFERENCES commande(id_com)
+CREATE TABLE facturation(
+   fac_id Int(10) NOT NULL AUTO_INCREMENT,
+   fac_reduction INT,
+   fac_reduc_sup INT,
+   fac_date DATE,
+   fac_total DECIMAL(8,2) NOT NULL,
+   fac_etat VARCHAR(50) NOT NULL,
+   fac_type_paiement VARCHAR(50) NOT NULL,
+   fac_com_id INT NOT NULL,
+   PRIMARY KEY(fac_id),
+   FOREIGN KEY(fac_com_id) REFERENCES commande(com_id)
 );
 
 CREATE TABLE sous_categorie(
-   sous_cat_id int(10) NOT NULL AUTO_INCREMENT,
-   nom_sous_cat VARCHAR(50) NOT NULL,
-   id_cat INT NOT NULL,
-   PRIMARY KEY(sous_cat_id),
-   FOREIGN KEY(id_cat) REFERENCES Catégorie(id_cat)
+   sc_id  Int(10) NOT NULL AUTO_INCREMENT,
+   sc_nom VARCHAR(50) NOT NULL,
+   sc_cat_id INT NOT NULL,
+   PRIMARY KEY(sc_id),
+   FOREIGN KEY(sc_cat_id) REFERENCES Catégorie(cat_id)
 );
 
-CREATE TABLE Livraison(
-   id_liv int(10) NOT NULL AUTO_INCREMENT,
-   date_liv DATE,
-   quantité_liv INT NOT NULL,
-   date_expedition_liv DATE,
-   id_com INT NOT NULL,
-   PRIMARY KEY(id_liv),
-   FOREIGN KEY(id_com) REFERENCES commande(id_com)
+CREATE TABLE livraison(
+   liv_id  Int(10) NOT NULL AUTO_INCREMENT,
+   liv_date DATE,
+   liv_quantité INT NOT NULL,
+   liv_date_expedition DATE,
+   liv_com_id INT NOT NULL,
+   PRIMARY KEY(liv_id),
+   FOREIGN KEY(liv_com_id) REFERENCES commande(com_id)
 );
 
-CREATE TABLE Produit(
-   id_pro int(10) NOT NULL AUTO_INCREMENT,
-   prix_vente_pro DECIMAL(8,2) NOT NULL,
-   prix_achat_pro DECIMAL(8,2) NOT NULL,
-   ref_pro VARCHAR(50) NOT NULL,
-   libelle_court_pro VARCHAR(255) NOT NULL,
-   libelle_long_pro VARCHAR(255) NOT NULL,
-   photo_pro VARCHAR(50) NOT NULL,
-   stock_alerte_pro INT,
-   stock_phy_pro INT NOT NULL,
-   sous_cat_id INT NOT NULL,
-   id_fou INT NOT NULL,
-   PRIMARY KEY(id_pro),
-   FOREIGN KEY(sous_cat_id) REFERENCES sous_categorie(sous_cat_id),
-   FOREIGN KEY(id_fou) REFERENCES Fournisseur(id_fou)
+CREATE TABLE produit(
+   pro_id  Int(10) NOT NULL AUTO_INCREMENT,
+   pro_prix_vente DECIMAL(8,2) NOT NULL,
+   pro_prix_achat DECIMAL(8,2) NOT NULL,
+   pro_ref VARCHAR(50) NOT NULL,
+   pro_libelle_court VARCHAR(255) NOT NULL,
+   pro_libelle_long VARCHAR(255) NOT NULL,
+   pro_photo VARCHAR(50) NOT NULL,
+   pro_stock_alerte INT NOT NULL,
+   pro_stock_phy INT NOT NULL,
+   pro_sc_id INT NOT NULL,
+   pro_fou_id INT NOT NULL,
+   PRIMARY KEY(pro_id),
+   FOREIGN KEY(pro_sc_id) REFERENCES sous_categorie(sc_id),
+   FOREIGN KEY(pro_fou_id) REFERENCES Fournisseur(fou_id)
 );
 
-CREATE TABLE Ligne_de_commande(
-   id_ligne_com int(10) NOT NULL AUTO_INCREMENT,
-   quantité_ligne_com INT NOT NULL,
-   prix_unit_ligne_com INT NOT NULL,
-   id_com INT,
-   id_pro INT NOT NULL,
-   PRIMARY KEY(id_ligne_com),
-   FOREIGN KEY(id_com) REFERENCES commande(id_com),
-   FOREIGN KEY(id_pro) REFERENCES Produit(id_pro)
+CREATE TABLE ligne_de_commande(
+   ligne_com_id  Int(10) NOT NULL AUTO_INCREMENT,
+   ligne_com_quantité INT NOT NULL,
+   ligne_com_prix_unit INT NOT NULL,
+   ligne_com_com_id INT,
+   ligne_com_pro_id INT NOT NULL,
+   PRIMARY KEY(ligne_com_id),
+   FOREIGN KEY(ligne_com_com_id) REFERENCES commande(com_id),
+   FOREIGN KEY(ligne_com_pro_id) REFERENCES Produit(pro_id)
 );
