@@ -4,7 +4,7 @@ ID (Compteur)
 Nom (varchar 50) 
 Ville (varchar 50) 
 Adresse (varchar 200) 
-Code Postal (varchar 5) 
+Code Postal (char 5) 
 Type de fournisseur (constructeur/importateur) booleen
 Téléphone (entier) 
 Mail (varchar 255)
@@ -14,14 +14,14 @@ ID (Compteur)
 Nom (varchar 50) 
 Prénom (varchar 50) 
 Adresse (varchar 50) 
-Code postal (varchar 5) 
+Code postal (char 5) 
 Ville (varchar 50) 
 Téléphone (entier) 
 Mail (varchar 255) 
 Adresse de livraison (varchar 255) 
 Ville de livraison (varchar 50)
-Code postal de livraison (varchat 5)
-type de client varchar 50
+Code postal de livraison (char 5)
+type de client varchar 255
 
 
 Employé commerciaux
